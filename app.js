@@ -11,7 +11,8 @@ const app = express();
 
 
 
-
 //production environment variable or use 3000 for dev 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Horrible people listen to my port ${PORT}`);
+});
