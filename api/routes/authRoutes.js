@@ -8,16 +8,30 @@ module.exports = app => {
         })
     )
 
-    app.get('/auth/google/callback', passport.authenticate('google'));
+    //re-routing user after success login with google
+    app.get(
+        '/auth/google/callback',
+        passport.authenticate('google'),
+        (req, res) => {
+            res.redirect('/dash');
+        }
+    );
+
 
     // logout() is being gained from passport library
-    app.get('/api/logout', (req, res) => {
-        req.logout();
-        res.send(`User is ${req.user}. Log out success!!`)
-    });
+    app.get(
+        '/api/logout',
+        (req, res) => {
+            req.logout();
+            res.redirect('/');
+        }
+    );
 
-    // for test purposes only. 
-    app.get('/api/current_user', (req, res) => {
-        res.send(req.user);
-    })
+    
+    app.get(
+        '/api/current_user',
+        (req, res) => {
+            res.send(req.user);
+        }
+    );
 }
