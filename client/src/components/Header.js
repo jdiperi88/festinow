@@ -15,9 +15,27 @@ class Header extends Component {
           </div>
         )
       default:
-        return <li><a href="/api/logout">Log Out!</a></li>
+        return (
+          <div>
+            { this.renderUserName(this.props.auth) }
+            <li><a href="/api/logout">Log Out!</a></li>
+          </div>
+        )
     }
   }
+
+  renderUserName (user) {
+    if (user) {
+      var userName = '';
+      if (user.google) {
+        userName = user.google.name;
+      } else {
+        userName = user.facebook.name;
+      }
+      return <p>Logged in as: {userName} </p>
+    }
+  }
+  
   render () {
     return (
       <div>
