@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('../config/keys');
 const mongoose = require('mongoose');
 const User = mongoose.model('users');
@@ -38,6 +39,30 @@ passport.use(
             const user = await new User({ googleId: profile.id }).save();
             done(null, user);
         }
+    )
+);
+
+// Facebook OAuth Strategy Logic
+
+passport.use(
+    new FacebookStrategy(
+        {
+            clientID: keys.facebookClientID,
+            clientSecret: keys.facebookClientSecret,
+            callbackURL: '/auth/facebook/callback'
+        },
+        async (accessToken, refreshToken, profile, done) => {
+    
+            // query mongoDB first to see if this user exist in the DB
+            const existingUser = await User.findOne({ facebookId: profile.id });
+            
+            // if user already in mongoDB then simply return the existingUser
+            if (existingUser) { return done(null, existingUser) };
+
+            // else create a new user and save it to mongoDB and return the user
+            const user = await new User({ facebookId: profile.id }).save();
+            done(null, user);
+          }
     )
 );
 
