@@ -25,11 +25,9 @@ class Header extends Component {
   }
 
   renderUserName (user) {
-    if(user.google) {
-      return <p>Logged in as: {user.google.name} </p>
-    } else {
-      return <p>Logged in as: {user.facebook.name} </p>
-    }
+
+    return (user.google) ? <p>Logged in as: {user.google.name} </p> : <p>Logged in as: {user.facebook.name} </p>;
+    
   }
   
   render () {
