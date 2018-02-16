@@ -16,6 +16,21 @@ module.exports = app => {
             res.redirect('/dash');
         }
     );
+    
+    app.get(
+        '/auth/facebook',
+        passport.authenticate('facebook', {
+            scope: 'public_profile'
+        })
+    );
+
+    app.get(
+        '/auth/facebook/callback',
+        passport.authenticate('facebook'),
+        (req, res) => {
+            res.redirect('/dash');
+        }
+    );
 
 
     // logout() is being gained from passport library
