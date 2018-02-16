@@ -9,7 +9,7 @@ class Header extends Component {
         return;
       case false:
         return (
-          <div>
+          <div className="home">
             <li><a href="/auth/google">Login With Google</a></li>
             <li><a href="/auth/facebook">Login With FaceBook</a></li>
           </div>

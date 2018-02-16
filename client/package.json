@@ -7,7 +7,7 @@
       "target": "http://localhost:3001"
     },
     "/auth/facebook": {
-      "target": "http://localhost:3001"      
+      "target": "http://localhost:3001"
     },
     "/api/*": {
       "target": "http://localhost:3001"
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "node-sass-chokidar": "0.0.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
@@ -27,6 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build-css": "node-sass-chokidar src/styles -o src/styles",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive"
   }
 }
